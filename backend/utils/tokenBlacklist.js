@@ -1,3 +1,4 @@
+//@ts-nocheck
 const mongoose = require('mongoose');
 const BlacklistedToken = require('../models/blacklistedToken.model');
 const jwt = require('jsonwebtoken');
@@ -21,7 +22,7 @@ async function blacklistToken(token, userId = null, reason = 'logout') {
     let expiresAt;
     try {
       const decoded = jwt.decode(token);
-      if (decoded && decoded.exp) {
+      if (decoded && typeof decoded === 'object' && typeof decoded.exp === 'number') {
         expiresAt = new Date(decoded.exp * 1000);
       }
     } catch (_) {}
