@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('./catchAsyncErrors');
+const { isTokenBlacklisted } = require('../utils/tokenBlacklist');
 
 exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   //  console.log("AUTH HEADER =>", req.headers.authorization);
@@ -20,6 +21,12 @@ exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
 
   if (!token) {
     return next(new ErrorHandler('Please login to access this resource', 401));
+  }
+
+  // Check Blacklist (Immediate Revocation for logged out or compromised tokens)
+  const isRevoked = await isTokenBlacklisted(token);
+  if (isRevoked) {
+    return next(new ErrorHandler('This session has been logged out. Please login again.', 401));
   }
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET);

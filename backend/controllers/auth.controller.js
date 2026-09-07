@@ -13,6 +13,8 @@ const sendToken = require('../utils/sendToken');
 
 const cloudinary = require('../config/cloudinary');
 
+const { blacklistToken } = require('../utils/tokenBlacklist');
+
 // REGISTER USER
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
   const { name, email, password, confirmPassword, phoneNumber, role } = req.body;
@@ -64,6 +66,18 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
 
 // LOGOUT USER
 exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
+  let token;
+  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    token = req.headers.authorization.split(' ')[1];
+  } else if (req.cookies?.jwt) {
+    token = req.cookies.jwt;
+  }
+
+  // Add token to blacklist immediately (Option A: MongoDB TTL + Memory Cache)
+  if (token) {
+    await blacklistToken(token, req.user?.id || req.user?._id, 'logout');
+  }
+
   res.cookie('jwt', null, {
     expires: new Date(Date.now()),
     httpOnly: true,
@@ -175,6 +189,17 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
   user.password = newPassword;
 
   await user.save();
+
+  // Invalidate old token on password change
+  let token;
+  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    token = req.headers.authorization.split(' ')[1];
+  } else if (req.cookies?.jwt) {
+    token = req.cookies.jwt;
+  }
+  if (token) {
+    await blacklistToken(token, user._id, 'password_change');
+  }
 
   res.status(200).json({
     success: true,
