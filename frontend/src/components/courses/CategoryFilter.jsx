@@ -11,20 +11,23 @@ const categories = [
 
 const CategoryFilter = ({ selected, setSelected }) => {
   return (
-    <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mt-8">
-      {categories.map((category) => (
-        <button
-          key={category}
-          onClick={() => setSelected(category)}
-          className={`relative px-5 sm:px-6 py-3 rounded-full font-medium text-sm transition-all duration-300 backdrop-blur-md border
-          ${selected === category
-              ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-transparent shadow-lg shadow-indigo-500/30 scale-105"
-              : "bg-white/5 border-white/10 text-gray-300 hover:bg-white/10 hover:text-white hover:border-indigo-500/30"
+    <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 pt-2 scrollbar-none no-scrollbar">
+      {categories.map((category) => {
+        const isSelected = selected.toLowerCase() === category.toLowerCase();
+        return (
+          <button
+            key={category}
+            onClick={() => setSelected(category)}
+            className={`whitespace-nowrap px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 shrink-0 border cursor-pointer ${
+              isSelected
+                ? "bg-indigo-600 text-white border-indigo-500 shadow-md shadow-indigo-600/30"
+                : "bg-slate-900/80 text-slate-400 border-slate-800 hover:text-white hover:border-slate-700 hover:bg-slate-850"
             }`}
-        >
-          {category}
-        </button>
-      ))}
+          >
+            {category}
+          </button>
+        );
+      })}
     </div>
   );
 };

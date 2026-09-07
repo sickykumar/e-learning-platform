@@ -26,7 +26,7 @@ const Contact = () => {
   }, [actionData]);
 
   return (
-    <section className="bg-[#020817] py-20 px-6">
+    <section className="bg-[#020817] py-8 sm:py-12 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto border border-slate-700 rounded-2xl overflow-hidden">
         <div className="grid lg:grid-cols-2">
           {/* Left Side */}

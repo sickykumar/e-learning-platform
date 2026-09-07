@@ -120,6 +120,6 @@ export const forgotPassword = (email) => API.post('api/auth/forgot-password', { 
 // ChatBoat Api
 // =========================
 export const askChatbot = async (message) => {
-  const { data } = await API.post('api/chatbot/ask', { message });
+  const { data } = await API.post('/api/chatbot/ask', { message });
   return data;
 };

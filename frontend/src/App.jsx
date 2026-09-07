@@ -1,8 +1,19 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './routes/router';
 
 const App = () => {
+  useEffect(() => {
+    // Non-blocking background warmup ping for Render free-tier instance
+    const warmupBackend = () => {
+      const apiUrl = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
+      if (apiUrl) {
+        fetch(`${apiUrl}/health`, { mode: 'cors' }).catch(() => null);
+      }
+    };
+    warmupBackend();
+  }, []);
+
   return (
     <Suspense
       fallback={

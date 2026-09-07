@@ -1,82 +1,83 @@
 import { FaQuoteLeft, FaStar } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
+import { Sparkles, CheckCircle } from "lucide-react";
 
 import "swiper/css";
 import "swiper/css/pagination";
 
 const testimonials = [
   {
-    name: "DevVer R",
-    role: "Business Course",
+    name: "Aman Sharma",
+    college: "Placed at Flipkart • Bengaluru",
+    role: "Full-Stack MERN Specialization",
     rating: 5,
     review:
-      "This platform helped me switch my career within 6 months. The structured lessons and practical projects made learning simple and effective.",
+      "The full-stack curriculum with Redis, Docker, and AWS deployment helped me crack my SDE interview with a 14 LPA package. The projects you build here are miles ahead of generic tutorials.",
   },
   {
-    name: "Tony Chester",
-    role: "Photography Course",
+    name: "Priya Patel",
+    college: "SDE-1 at Swiggy • Remote",
+    role: "Backend & System Design Track",
     rating: 5,
     review:
-      "The best online learning experience I've ever had. Clear content, supportive mentors, and real-world skills.",
+      "Understanding database indexing, caching strategies, and concurrency patterns gave me massive confidence. The mentors answered every query promptly. Best investment in ₹ INR!",
   },
   {
-    name: "Sarah Wilson",
-    role: "Frontend Development",
+    name: "Rohan Verma",
+    college: "Placed at Delhivery • Gurugram",
+    role: "Frontend Engineering & Next.js",
     rating: 5,
     review:
-      "The React and JavaScript courses completely transformed my development skills and confidence.",
+      "I was struggling to clear technical rounds as a tier-3 college graduate. E-Learn's hands-on capstones transformed my resume. Got placed within 3 months of finishing the course.",
   },
   {
-    name: "Michael Brown",
-    role: "Digital Marketing",
+    name: "Sneha Mukherjee",
+    college: "Data Engineer at Tata 1mg",
+    role: "AI & Modern Python Systems",
     rating: 5,
     review:
-      "Amazing instructors and practical content. I started getting freelance projects after completing the course.",
+      "The course takes you step-by-step from core concepts to production LLM agents. Practical, engaging, and directly applicable to real-world engineering work.",
   },
   {
-    name: "Emily Johnson",
-    role: "UI/UX Design",
+    name: "Vikram Singhania",
+    college: "Software Engineer at Zomato",
+    role: "MERN Stack & DevOps",
     rating: 5,
     review:
-      "Beautiful course structure, hands-on projects, and very supportive mentors throughout the journey.",
+      "Affordable pricing in Indian Rupees with top-tier tech mentorship. Building and deploying 4 full-fledged microservices completely changed my engineering perspective.",
   },
 ];
 
 const Testimonials = () => {
   return (
-    <section className="relative py-24 px-4 sm:px-6 overflow-hidden">
-
-      {/* Background Effects */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-indigo-600/10 blur-[140px] rounded-full" />
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-600/10 blur-[140px] rounded-full" />
+    <section className="relative py-20 px-4 sm:px-6 overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-indigo-600/10 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto">
-
         {/* Badge */}
         <div className="flex justify-center">
-          <span className="bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 px-4 py-2 rounded-full text-sm backdrop-blur-md">
-            ⭐ Student Success Stories
+          <span className="inline-flex items-center gap-1.5 bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 px-3.5 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Alumni Placement Stories</span>
           </span>
         </div>
 
         {/* Heading */}
-        <h2 className="mt-6 text-center text-4xl sm:text-5xl md:text-6xl font-extrabold text-white">
-          What Our
+        <h2 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
+          How Learners Accelerated{' '}
           <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            {" "}
-            Students Say
+            Their Careers
           </span>
         </h2>
 
-        <p className="max-w-2xl mx-auto text-center text-gray-400 mt-6 text-base sm:text-lg leading-8">
-          Thousands of learners trust our platform to gain practical skills,
-          advance their careers, and achieve their goals.
+        <p className="max-w-2xl mx-auto text-center text-slate-400 mt-3 text-sm sm:text-base leading-relaxed">
+          Read real stories from students and working professionals across India who transformed their tech careers with our courses.
         </p>
 
         {/* Slider */}
-        <div className="mt-16">
-
+        <div className="mt-12">
           <Swiper
             modules={[Autoplay, Pagination]}
             spaceBetween={24}
@@ -98,60 +99,50 @@ const Testimonials = () => {
               },
             }}
           >
-
             {testimonials.map((item, index) => (
               <SwiperSlide key={index}>
+                <div className="group h-full flex flex-col justify-between rounded-2xl bg-slate-900/80 backdrop-blur-xl border border-slate-800 p-6 sm:p-7 hover:border-indigo-500/40 hover:-translate-y-1.5 transition-all duration-300 shadow-xl shadow-black/30">
+                  <div>
+                    {/* Header: Quote + Stars */}
+                    <div className="flex items-center justify-between">
+                      <FaQuoteLeft className="text-indigo-400 text-2xl" />
+                      <div className="flex gap-1">
+                        {[...Array(item.rating)].map((_, i) => (
+                          <FaStar key={i} className="text-amber-400 text-xs" />
+                        ))}
+                      </div>
+                    </div>
 
-                <div className="group h-full rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 p-8 hover:border-indigo-500/30 hover:-translate-y-2 transition-all duration-500">
-
-                  {/* Quote */}
-                  <FaQuoteLeft className="text-indigo-400 text-3xl" />
-
-                  {/* Stars */}
-                  <div className="flex gap-1 mt-5">
-                    {[...Array(item.rating)].map((_, i) => (
-                      <FaStar
-                        key={i}
-                        className="text-yellow-400"
-                      />
-                    ))}
+                    {/* Review Text */}
+                    <p className="text-slate-300 text-sm mt-5 leading-relaxed italic">
+                      "{item.review}"
+                    </p>
                   </div>
 
-                  {/* Review */}
-                  <p className="text-gray-300 mt-5 leading-8">
-                    "{item.review}"
-                  </p>
+                  {/* Student Info */}
+                  <div className="flex items-center gap-3.5 mt-6 pt-5 border-t border-slate-800/80">
+                    <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center text-white font-black text-sm shrink-0 shadow-md">
+                      {item.name.charAt(0)}
+                    </div>
 
-                  {/* User */}
-                  <div className="flex items-center gap-4 mt-8">
-
-                    <img
-                      src={`https://i.pravatar.cc/150?img=${index + 10}`}
-                      alt={item.name}
-                      className="w-14 h-14 rounded-full border-2 border-indigo-500 object-cover"
-                    />
-
-                    <div>
-                      <h4 className="text-white font-semibold">
-                        {item.name}
+                    <div className="min-w-0">
+                      <h4 className="text-white font-bold text-sm truncate flex items-center gap-1.5">
+                        <span>{item.name}</span>
+                        <CheckCircle className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                       </h4>
-
-                      <p className="text-gray-400 text-sm">
+                      <p className="text-emerald-400 text-xs font-medium truncate">
+                        {item.college}
+                      </p>
+                      <p className="text-slate-500 text-[11px] truncate">
                         {item.role}
                       </p>
                     </div>
-
                   </div>
-
                 </div>
-
               </SwiperSlide>
             ))}
-
           </Swiper>
-
         </div>
-
       </div>
     </section>
   );

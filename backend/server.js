@@ -10,6 +10,23 @@ connectdb();
 
 //listening Port
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server is running at port: ${PORT}`);
 });
+
+// Start anti-cold-storage keep-alive self-pinger
+const { startKeepAlive, stopKeepAlive } = require('./utils/keepAlive');
+startKeepAlive();
+
+// Graceful shutdown handling
+const shutdown = () => {
+  console.log('Gracefully shutting down...');
+  stopKeepAlive();
+  server.close(() => process.exit(0));
+};
+
+if (process.platform !== 'win32') {
+  process.on('SIGINT', shutdown);
+  process.on('SIGTERM', shutdown);
+}
+

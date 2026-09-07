@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getCategoryCount } from "../../api/CourseApi";
 import categoryIcons from "../data/categoryIcons";
 import { FaCode } from "react-icons/fa";
-import { toast } from "react-hot-toast";
+import { Sparkles, ArrowRight } from "lucide-react";
 
 const TopCategories = () => {
   const [categories, setCategories] = useState([]);
@@ -10,10 +11,9 @@ const TopCategories = () => {
   const fetchCategories = async () => {
     try {
       const response = await getCategoryCount();
-      setCategories(response.data);
+      setCategories(response.data || []);
     } catch (error) {
-      console.log(error);
-      toast.error("Failed to load categories");
+      console.error(error);
     }
   };
 
@@ -23,75 +23,72 @@ const TopCategories = () => {
   }, []);
 
   return (
-    <section className="relative py-24 px-4 sm:px-6 overflow-hidden">
-
-      {/* Background Effects */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-indigo-600/10 blur-[140px] rounded-full" />
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-600/10 blur-[140px] rounded-full" />
+    <section className="relative py-20 px-4 sm:px-6 overflow-hidden">
+      
+      {/* Background Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-indigo-600/10 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto">
 
         {/* Badge */}
         <div className="flex justify-center">
-          <span className="bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 px-4 py-2 rounded-full text-sm backdrop-blur-md">
-            🚀 Explore Learning Paths
+          <span className="inline-flex items-center gap-1.5 bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 px-3.5 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>High-Demand Tech Tracks</span>
           </span>
         </div>
 
         {/* Heading */}
-        <h2 className="mt-6 text-center text-4xl sm:text-5xl md:text-6xl font-extrabold text-white">
-          Top
+        <h2 className="mt-4 text-center text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
+          Trending In-Demand{' '}
           <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            {" "}
-            Categories
+            Domains
           </span>
         </h2>
 
         {/* Description */}
-        <p className="max-w-2xl mx-auto text-center text-gray-400 mt-6 text-base sm:text-lg leading-8">
-          Discover the most popular categories chosen by thousands of
-          learners and start building real-world skills today.
+        <p className="max-w-2xl mx-auto text-center text-slate-400 mt-3 text-sm sm:text-base leading-relaxed">
+          Master career-defining specializations aligned with Indian and global tech hiring requirements.
         </p>
 
         {/* Categories Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 mt-16">
-
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-12">
           {categories?.map((item) => {
             const Icon = categoryIcons[item._id] || FaCode;
 
             return (
-              <div
+              <Link
                 key={item._id}
-                className="group relative overflow-hidden rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 p-6 sm:p-8 hover:border-indigo-500/30 hover:-translate-y-2 transition-all duration-500"
+                to={`/courses?category=${encodeURIComponent(item._id)}`}
+                className="group relative overflow-hidden rounded-2xl bg-slate-900/80 backdrop-blur-xl border border-slate-800 p-5 sm:p-6 hover:border-indigo-500/50 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between shadow-lg shadow-black/30 cursor-pointer"
               >
-
                 {/* Glow Effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
 
-                {/* Icon */}
-                <div className="relative w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-2xl shadow-lg shadow-indigo-500/30 group-hover:scale-110 transition duration-500">
-                  <Icon />
+                <div>
+                  {/* Icon */}
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 text-xl shadow-md group-hover:scale-110 transition duration-300">
+                    <Icon />
+                  </div>
+
+                  {/* Category Name */}
+                  <h3 className="text-white font-bold text-base mt-4 group-hover:text-indigo-300 transition-colors">
+                    {item._id}
+                  </h3>
+
+                  {/* Course Count */}
+                  <p className="text-slate-400 text-xs mt-1">
+                    {item.totalCourses} {item.totalCourses === 1 ? 'Course' : 'Courses'} Available
+                  </p>
                 </div>
 
-                {/* Category Name */}
-                <h3 className="relative text-center text-white font-bold text-lg mt-6">
-                  {item._id}
-                </h3>
-
-                {/* Course Count */}
-                <p className="relative text-center text-gray-400 mt-2">
-                  {item.totalCourses} Courses
-                </p>
-
-                {/* Bottom Line */}
-                <div className="relative mt-5 flex justify-center">
-                  <div className="h-1 w-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500" />
+                <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-indigo-400 font-semibold group-hover:translate-x-0.5 transition-transform">
+                  <span>Browse Path</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </div>
-
-              </div>
+              </Link>
             );
           })}
-
         </div>
       </div>
     </section>

@@ -1,95 +1,74 @@
 import { Link } from "react-router-dom";
+import { Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
 
 const CTA = () => {
   return (
-    <section className="relative py-24 px-4 sm:px-6 overflow-hidden">
-
+    <section className="relative py-20 px-4 sm:px-6 overflow-hidden">
       {/* Background Glow */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-600/10 blur-[150px] rounded-full" />
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-indigo-600/15 blur-[160px] rounded-full pointer-events-none" />
 
       <div className="relative max-w-5xl mx-auto">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-slate-900 via-[#0b1329] to-slate-950 border border-slate-800 p-8 sm:p-12 lg:p-16 text-center shadow-2xl shadow-indigo-950/40">
+          
+          {/* Subtle Grid Accent */}
+          <div className="absolute inset-0 bg-[radial-gradient(#6366f1_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
 
-        <div className="relative overflow-hidden rounded-[32px] bg-white/5 backdrop-blur-xl border border-white/10 p-8 sm:p-12 lg:p-16 text-center">
-
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-pink-500/5" />
-
-          <div className="relative">
-
+          <div className="relative z-10">
             {/* Badge */}
-            <span className="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 px-4 py-2 rounded-full text-sm backdrop-blur-md">
-              🚀 Join The Future Of Learning
+            <span className="inline-flex items-center gap-1.5 bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 px-4 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Accelerate Your Career in 2026</span>
             </span>
 
             {/* Heading */}
-            <h2 className="mt-8 text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight">
-              Start Learning
-              <span className="block bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Today
+            <h2 className="mt-6 text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight">
+              Ready to Build Production Skills &{' '}
+              <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Get Hired?
               </span>
             </h2>
 
             {/* Description */}
-            <p className="max-w-2xl mx-auto mt-6 text-gray-400 text-base sm:text-lg leading-8">
-              Unlock your potential with expert-led courses, real-world
-              projects, certificates, and a global learning community.
+            <p className="max-w-2xl mx-auto mt-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+              Join 50,000+ engineers, students, and professionals across India. Learn modern tech stacks, complete capstone projects, and unlock high-paying software careers.
             </p>
 
-            {/* Stats */}
-            <div className="flex flex-wrap justify-center gap-6 mt-10">
-
-              <div>
-                <h3 className="text-3xl font-bold text-white">
-                  15K+
-                </h3>
-                <p className="text-gray-400 text-sm">
-                  Students
-                </p>
+            {/* Trust indicators */}
+            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 mt-8 text-xs text-slate-400">
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <span>Transparent ₹ INR Pricing</span>
               </div>
-
-              <div>
-                <h3 className="text-3xl font-bold text-white">
-                  120+
-                </h3>
-                <p className="text-gray-400 text-sm">
-                  Courses
-                </p>
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <span>Lifetime Course Access</span>
               </div>
-
-              <div>
-                <h3 className="text-3xl font-bold text-white">
-                  50+
-                </h3>
-                <p className="text-gray-400 text-sm">
-                  Mentors
-                </p>
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <span>Verified Certificate</span>
               </div>
-
             </div>
 
             {/* Buttons */}
             <div className="mt-10 flex flex-wrap justify-center gap-4">
-
               <Link
                 to="/courses"
-                className="px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 hover:-translate-y-1 transition-all duration-300"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-sm sm:text-base shadow-xl shadow-indigo-600/30 hover:shadow-indigo-600/50 hover:scale-[1.02] transition-all duration-300"
               >
-                Browse Courses →
+                <span>Browse All Courses</span>
+                <ArrowRight className="w-4 h-4" />
               </Link>
 
               <Link
                 to="/register"
-                className="px-8 py-4 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 text-white hover:bg-white/10 hover:border-indigo-500/30 transition-all duration-300"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-700 hover:border-slate-500 text-white font-semibold text-sm sm:text-base transition-all duration-300"
               >
-                Join Free
+                <span>Create Free Account</span>
               </Link>
-
             </div>
 
           </div>
-
         </div>
-
       </div>
     </section>
   );

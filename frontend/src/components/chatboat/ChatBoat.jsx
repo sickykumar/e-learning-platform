@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { askChatbot } from "../../api/authApi";
-import { MessageCircle, Send, X, BookOpen, Clock, Tag } from "lucide-react";
+import { MessageCircle, Send, X, BookOpen, Clock } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from 'react-hot-toast';
 import { Link } from "react-router-dom";
